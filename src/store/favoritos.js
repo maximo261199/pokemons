@@ -1,14 +1,38 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
+import router from "../router";
 
 export  const  useFavoritosStore = defineStore('favoritos', () =>{
+
     const favoritos = ref([])
 
-    const add = (poke) =>{
-        favoritos.value.push(poke)
+    if (localStorage.getItem("favoritos")){
+        favoritos.value = JSON.parse(localStorage.getItem("favoritos"))
     }
+
+    const add = (poke) =>{
+
+        favoritos.value.push(poke)
+        localStorage.setItem('favoritos', JSON.stringify(favoritos.value));
+    }
+//se guarda en formato de texto
+
+    const remove = (id) => {
+        favoritos.value = favoritos.value.filter(item=> item.id !== id)
+        localStorage.setItem('favoritos', JSON.stringify(favoritos.value));
+    }
+
+    const findPoke = name =>favoritos.value.find(items => items.name === name)
+
+
     return {
         favoritos,
         add,
+        remove,
+        findPoke,
+
+
     }
 })
+
+//iterar

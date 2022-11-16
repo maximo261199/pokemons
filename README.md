@@ -27,3 +27,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+```sh
+no pense q lo vieras
+```
